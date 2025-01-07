@@ -1,0 +1,9 @@
+/home/lucas/Área de trabalho/CG_Trabalhos/Trabalho_Parte_1/build/CMakeFiles/my_opengl_project.dir
+/home/lucas/Área de trabalho/CG_Trabalhos/Trabalho_Parte_1/build/CMakeFiles/edit_cache.dir
+/home/lucas/Área de trabalho/CG_Trabalhos/Trabalho_Parte_1/build/CMakeFiles/rebuild_cache.dir
+/home/lucas/Área de trabalho/CG_Trabalhos/Trabalho_Parte_1/build/glad/CMakeFiles/glad.dir
+/home/lucas/Área de trabalho/CG_Trabalhos/Trabalho_Parte_1/build/glad/CMakeFiles/edit_cache.dir
+/home/lucas/Área de trabalho/CG_Trabalhos/Trabalho_Parte_1/build/glad/CMakeFiles/rebuild_cache.dir
+/home/lucas/Área de trabalho/CG_Trabalhos/Trabalho_Parte_1/build/glm/CMakeFiles/glm_shared.dir
+/home/lucas/Área de trabalho/CG_Trabalhos/Trabalho_Parte_1/build/glm/CMakeFiles/edit_cache.dir
+/home/lucas/Área de trabalho/CG_Trabalhos/Trabalho_Parte_1/build/glm/CMakeFiles/rebuild_cache.dir
