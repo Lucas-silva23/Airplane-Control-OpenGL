@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I"/home/lucas/Área de trabalho/CG_Trabalhos/Trabalho_Parte_1/glad/include" -I"/home/lucas/Área de trabalho/CG_Trabalhos/Trabalho_Parte_1/glad" -I"/home/lucas/Área de trabalho/CG_Trabalhos/Trabalho_Parte_1/glm/.."
+CXX_INCLUDES = -I"/home/lucas/Área de trabalho/CG_Trabalhos/Trabalho_CG/glad/include" -I"/home/lucas/Área de trabalho/CG_Trabalhos/Trabalho_CG/glad" -I"/home/lucas/Área de trabalho/CG_Trabalhos/Trabalho_CG/glm/.."
 
 CXX_FLAGS = 
 

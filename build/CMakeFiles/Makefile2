@@ -54,10 +54,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/home/lucas/Área de trabalho/CG_Trabalhos/Trabalho_Parte_1"
+CMAKE_SOURCE_DIR = "/home/lucas/Área de trabalho/CG_Trabalhos/Trabalho_CG"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/home/lucas/Área de trabalho/CG_Trabalhos/Trabalho_Parte_1/build"
+CMAKE_BINARY_DIR = "/home/lucas/Área de trabalho/CG_Trabalhos/Trabalho_CG/build"
 
 #=============================================================================
 # Directory level rules for the build root directory
@@ -116,14 +116,14 @@ glm/clean: glm/CMakeFiles/glm_shared.dir/clean
 CMakeFiles/my_opengl_project.dir/all: glad/CMakeFiles/glad.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_opengl_project.dir/build.make CMakeFiles/my_opengl_project.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_opengl_project.dir/build.make CMakeFiles/my_opengl_project.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir="/home/lucas/Área de trabalho/CG_Trabalhos/Trabalho_Parte_1/build/CMakeFiles" --progress-num=5,6 "Built target my_opengl_project"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir="/home/lucas/Área de trabalho/CG_Trabalhos/Trabalho_CG/build/CMakeFiles" --progress-num=5,6 "Built target my_opengl_project"
 .PHONY : CMakeFiles/my_opengl_project.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/my_opengl_project.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/lucas/Área de trabalho/CG_Trabalhos/Trabalho_Parte_1/build/CMakeFiles" 4
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/lucas/Área de trabalho/CG_Trabalhos/Trabalho_CG/build/CMakeFiles" 4
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/my_opengl_project.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/lucas/Área de trabalho/CG_Trabalhos/Trabalho_Parte_1/build/CMakeFiles" 0
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/lucas/Área de trabalho/CG_Trabalhos/Trabalho_CG/build/CMakeFiles" 0
 .PHONY : CMakeFiles/my_opengl_project.dir/rule
 
 # Convenience name for target.
@@ -142,14 +142,14 @@ CMakeFiles/my_opengl_project.dir/clean:
 glad/CMakeFiles/glad.dir/all:
 	$(MAKE) $(MAKESILENT) -f glad/CMakeFiles/glad.dir/build.make glad/CMakeFiles/glad.dir/depend
 	$(MAKE) $(MAKESILENT) -f glad/CMakeFiles/glad.dir/build.make glad/CMakeFiles/glad.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir="/home/lucas/Área de trabalho/CG_Trabalhos/Trabalho_Parte_1/build/CMakeFiles" --progress-num=1,2 "Built target glad"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir="/home/lucas/Área de trabalho/CG_Trabalhos/Trabalho_CG/build/CMakeFiles" --progress-num=1,2 "Built target glad"
 .PHONY : glad/CMakeFiles/glad.dir/all
 
 # Build rule for subdir invocation for target.
 glad/CMakeFiles/glad.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/lucas/Área de trabalho/CG_Trabalhos/Trabalho_Parte_1/build/CMakeFiles" 2
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/lucas/Área de trabalho/CG_Trabalhos/Trabalho_CG/build/CMakeFiles" 2
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glad/CMakeFiles/glad.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/lucas/Área de trabalho/CG_Trabalhos/Trabalho_Parte_1/build/CMakeFiles" 0
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/lucas/Área de trabalho/CG_Trabalhos/Trabalho_CG/build/CMakeFiles" 0
 .PHONY : glad/CMakeFiles/glad.dir/rule
 
 # Convenience name for target.
@@ -168,14 +168,14 @@ glad/CMakeFiles/glad.dir/clean:
 glm/CMakeFiles/glm_shared.dir/all:
 	$(MAKE) $(MAKESILENT) -f glm/CMakeFiles/glm_shared.dir/build.make glm/CMakeFiles/glm_shared.dir/depend
 	$(MAKE) $(MAKESILENT) -f glm/CMakeFiles/glm_shared.dir/build.make glm/CMakeFiles/glm_shared.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir="/home/lucas/Área de trabalho/CG_Trabalhos/Trabalho_Parte_1/build/CMakeFiles" --progress-num=3,4 "Built target glm_shared"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir="/home/lucas/Área de trabalho/CG_Trabalhos/Trabalho_CG/build/CMakeFiles" --progress-num=3,4 "Built target glm_shared"
 .PHONY : glm/CMakeFiles/glm_shared.dir/all
 
 # Build rule for subdir invocation for target.
 glm/CMakeFiles/glm_shared.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/lucas/Área de trabalho/CG_Trabalhos/Trabalho_Parte_1/build/CMakeFiles" 2
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/lucas/Área de trabalho/CG_Trabalhos/Trabalho_CG/build/CMakeFiles" 2
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glm/CMakeFiles/glm_shared.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/lucas/Área de trabalho/CG_Trabalhos/Trabalho_Parte_1/build/CMakeFiles" 0
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/lucas/Área de trabalho/CG_Trabalhos/Trabalho_CG/build/CMakeFiles" 0
 .PHONY : glm/CMakeFiles/glm_shared.dir/rule
 
 # Convenience name for target.

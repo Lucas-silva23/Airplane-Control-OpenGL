@@ -1,4 +1,4 @@
-# Install script for directory: /home/lucas/Área de trabalho/CG_Trabalhos/Trabalho_Parte_1/glad
+# Install script for directory: /home/lucas/Área de trabalho/CG_Trabalhos/Trabalho_CG/glad
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

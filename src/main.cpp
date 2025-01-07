@@ -17,10 +17,6 @@ using namespace std;
 bool ortho_per = true;
 GLint width = 800,height = 800; 
 
-int ombrox=0, ombroy=0, ombroz=0;
-int cotoveloz=0,maox=0,dedoz=0;
-
- 
 static void error_callback(int error, const char* description)
 {
     fprintf(stderr, "Error: %s\n", description);
@@ -53,32 +49,55 @@ int main(void)
     glEnable(GL_DEPTH_TEST);
     scene my_scene;
 
-    // Carregar o modelo de avião
-    try {
-        object* airplane = read_obj_file("../models/mesh_aviao.obj");
-        airplane->set_color(0.5f, 0.5f, 0.5f);
-        my_scene.push_back_object(airplane);
-    } catch (const std::exception& e) {
-        std::cerr << "Erro ao carregar o avião: " << e.what() << std::endl;
-        return -1;
-    }
+    //Cria o chão
+    GLfloat groundVertices[] = {
+        -30.0f, 0.0f, -30.0f,  
+        30.0f, 0.0f, -30.0f, 
+        30.0f, 0.0f,  30.0f,  
+        -30.0f, 0.0f,  30.0f   
+    };
 
+    GLushort groundIndices[] = {
+        0, 1, 2,  
+        2, 3, 0  
+    };
 
+    //Cria o objeto chão
+    object* ground = new object(
+        4,  //vértices
+        6,  //índices
+        groundVertices,
+        groundIndices
+    );
 
-    glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
+    //Configura a cor do chão
+    ground->set_color(0.0f, 1.0f, 0.0f);
+
+    my_scene.push_back_object(ground);
+
+    //Carregar o modelo de avião
+    
+    object* airplane = read_obj_file("../models/mesh_aviao.obj");
+    airplane->set_color(0.5f, 0.5f, 0.5f);
+    my_scene.push_back_object(airplane);
+
+    glClearColor(0.35f, 0.35f, 0.8f, 0.0f);
     glViewport(0, 0, width, height);
+
     my_scene.LookAt(0.0, 2.0, 10.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 
-    while (!glfwWindowShouldClose(window))
-    {
+    while (!glfwWindowShouldClose(window)) {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); 
-        if (ortho_per) {
-            my_scene.perspective(0.75, 1.0, 0.1, 200.0);
-        } else {
-            my_scene.Ortho3D(-5.0, 5.0, -5.0, 5.0, 0.0, 200.0);
-        }
-        
-        my_scene.render();              
+
+        // Atualiza a câmera com base no avião
+        my_scene.update_camera(airplane);
+
+        // Define a projeção ortográfica
+        my_scene.perspective(0.75, 1.0, 0.1, 200.0);
+
+        // Renderiza a cena
+        my_scene.render();
+
         glfwSwapBuffers(window);
         glfwPollEvents();
     }

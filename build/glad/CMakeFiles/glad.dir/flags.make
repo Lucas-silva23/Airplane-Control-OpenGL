@@ -4,7 +4,7 @@
 # compile C with /usr/bin/cc
 C_DEFINES = 
 
-C_INCLUDES = -I"/home/lucas/Área de trabalho/CG_Trabalhos/Trabalho_Parte_1/glad/include" -I"/home/lucas/Área de trabalho/CG_Trabalhos/Trabalho_Parte_1/glad"
+C_INCLUDES = -I"/home/lucas/Área de trabalho/CG_Trabalhos/Trabalho_CG/glad/include" -I"/home/lucas/Área de trabalho/CG_Trabalhos/Trabalho_CG/glad"
 
 C_FLAGS = 
 
