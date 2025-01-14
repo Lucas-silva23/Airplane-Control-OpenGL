@@ -418,6 +418,7 @@ CMakeFiles/my_opengl_project.dir/src/main.cpp.o: /home/lucas/Área\ de\ trabalho
   /usr/include/features-time64.h \
   /usr/include/features.h \
   /usr/include/limits.h \
+  /usr/include/linux/close_range.h \
   /usr/include/linux/errno.h \
   /usr/include/linux/limits.h \
   /usr/include/locale.h \
@@ -431,20 +432,25 @@ CMakeFiles/my_opengl_project.dir/src/main.cpp.o: /home/lucas/Área\ de\ trabalho
   /usr/include/string.h \
   /usr/include/strings.h \
   /usr/include/time.h \
+  /usr/include/unistd.h \
   /usr/include/wchar.h \
   /usr/include/wctype.h \
   /usr/include/x86_64-linux-gnu/asm/errno.h \
   /usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h \
   /usr/include/x86_64-linux-gnu/bits/byteswap.h \
+  /usr/include/x86_64-linux-gnu/bits/confname.h \
   /usr/include/x86_64-linux-gnu/bits/cpu-set.h \
   /usr/include/x86_64-linux-gnu/bits/endian.h \
   /usr/include/x86_64-linux-gnu/bits/endianness.h \
+  /usr/include/x86_64-linux-gnu/bits/environments.h \
   /usr/include/x86_64-linux-gnu/bits/errno.h \
   /usr/include/x86_64-linux-gnu/bits/floatn-common.h \
   /usr/include/x86_64-linux-gnu/bits/floatn.h \
   /usr/include/x86_64-linux-gnu/bits/flt-eval-method.h \
   /usr/include/x86_64-linux-gnu/bits/fp-fast.h \
   /usr/include/x86_64-linux-gnu/bits/fp-logb.h \
+  /usr/include/x86_64-linux-gnu/bits/getopt_core.h \
+  /usr/include/x86_64-linux-gnu/bits/getopt_posix.h \
   /usr/include/x86_64-linux-gnu/bits/iscanonical.h \
   /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
   /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h \
@@ -457,6 +463,7 @@ CMakeFiles/my_opengl_project.dir/src/main.cpp.o: /home/lucas/Área\ de\ trabalho
   /usr/include/x86_64-linux-gnu/bits/mathcalls.h \
   /usr/include/x86_64-linux-gnu/bits/posix1_lim.h \
   /usr/include/x86_64-linux-gnu/bits/posix2_lim.h \
+  /usr/include/x86_64-linux-gnu/bits/posix_opt.h \
   /usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h \
   /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h \
   /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h \
@@ -503,6 +510,7 @@ CMakeFiles/my_opengl_project.dir/src/main.cpp.o: /home/lucas/Área\ de\ trabalho
   /usr/include/x86_64-linux-gnu/bits/typesizes.h \
   /usr/include/x86_64-linux-gnu/bits/uintn-identity.h \
   /usr/include/x86_64-linux-gnu/bits/uio_lim.h \
+  /usr/include/x86_64-linux-gnu/bits/unistd_ext.h \
   /usr/include/x86_64-linux-gnu/bits/waitflags.h \
   /usr/include/x86_64-linux-gnu/bits/waitstatus.h \
   /usr/include/x86_64-linux-gnu/bits/wchar.h \
@@ -537,8 +545,6 @@ CMakeFiles/my_opengl_project.dir/src/main.cpp.o: /home/lucas/Área\ de\ trabalho
 
 
 /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h:
 
 /usr/include/x86_64-linux-gnu/sys/single_threaded.h:
 
@@ -620,7 +626,13 @@ CMakeFiles/my_opengl_project.dir/src/main.cpp.o: /home/lucas/Área\ de\ trabalho
 
 /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h:
 
+/usr/include/x86_64-linux-gnu/bits/getopt_core.h:
+
 /usr/include/x86_64-linux-gnu/bits/fp-logb.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h:
+
+/usr/include/x86_64-linux-gnu/bits/environments.h:
 
 /usr/include/x86_64-linux-gnu/bits/endian.h:
 
@@ -631,6 +643,8 @@ CMakeFiles/my_opengl_project.dir/src/main.cpp.o: /home/lucas/Área\ de\ trabalho
 /usr/include/x86_64-linux-gnu/asm/errno.h:
 
 /usr/include/wchar.h:
+
+/usr/include/unistd.h:
 
 /usr/include/strings.h:
 
@@ -717,6 +731,8 @@ CMakeFiles/my_opengl_project.dir/src/main.cpp.o: /home/lucas/Área\ de\ trabalho
 /usr/include/c++/13/cmath:
 
 /usr/include/c++/13/clocale:
+
+/usr/include/x86_64-linux-gnu/bits/posix_opt.h:
 
 /usr/include/c++/13/climits:
 
@@ -843,6 +859,8 @@ CMakeFiles/my_opengl_project.dir/src/main.cpp.o: /home/lucas/Área\ de\ trabalho
 /usr/include/x86_64-linux-gnu/bits/local_lim.h:
 
 /home/lucas/Área\ de\ trabalho/CG_Trabalhos/Trabalho_CG/glm/trigonometric.hpp:
+
+/usr/include/x86_64-linux-gnu/bits/unistd_ext.h:
 
 /home/lucas/Área\ de\ trabalho/CG_Trabalhos/Trabalho_CG/glm/mat2x2.hpp:
 
@@ -979,6 +997,8 @@ CMakeFiles/my_opengl_project.dir/src/main.cpp.o: /home/lucas/Área\ de\ trabalho
 /home/lucas/Área\ de\ trabalho/CG_Trabalhos/Trabalho_CG/glm/ext/matrix_uint2x4_sized.hpp:
 
 /home/lucas/Área\ de\ trabalho/CG_Trabalhos/Trabalho_CG/glm/ext/scalar_integer.hpp:
+
+/usr/include/x86_64-linux-gnu/bits/confname.h:
 
 /home/lucas/Área\ de\ trabalho/CG_Trabalhos/Trabalho_CG/glm/ext/quaternion_relational.hpp:
 
@@ -1177,6 +1197,8 @@ CMakeFiles/my_opengl_project.dir/src/main.cpp.o: /home/lucas/Área\ de\ trabalho
 /home/lucas/Área\ de\ trabalho/CG_Trabalhos/Trabalho_CG/glm/ext/matrix_float4x2.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/setjmp.h:
+
+/usr/include/x86_64-linux-gnu/bits/getopt_posix.h:
 
 /usr/include/time.h:
 
@@ -1459,6 +1481,8 @@ CMakeFiles/my_opengl_project.dir/src/main.cpp.o: /home/lucas/Área\ de\ trabalho
 /home/lucas/Área\ de\ trabalho/CG_Trabalhos/Trabalho_CG/glm/gtc/round.hpp:
 
 /home/lucas/Área\ de\ trabalho/CG_Trabalhos/Trabalho_CG/glm/ext/vector_float2.hpp:
+
+/usr/include/linux/close_range.h:
 
 /home/lucas/Área\ de\ trabalho/CG_Trabalhos/Trabalho_CG/src/loadobject.h:
 
