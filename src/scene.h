@@ -137,27 +137,26 @@ void scene::push_back_objects(vector<object*> new_objects){
 }
 
 void scene::update_camera(object* airplane) {
-    // Obtém a matriz de modelo do avião
-    glm::mat4 airplane_model = airplane->get_Model_matrix();
+  // Obtém a matriz de modelo do avião
+  glm::mat4 airplane_model = airplane->get_Model_matrix();
 
-    // Extrai a posição do avião (coluna 3 da matriz de modelo)
-    glm::vec3 airplane_position = glm::vec3(airplane_model[3]);
+  // Extrai a posição do avião (coluna 3 da matriz de modelo)
+  glm::vec3 airplane_position = glm::vec3(airplane_model[3]);
 
-    // Calcula a direção para trás do avião (coluna 2 da matriz de modelo, mas invertida)
-    glm::vec3 airplane_backward = -glm::vec3(airplane_model[2]);
+  // Calcula a direção para trás do avião (coluna 2 da matriz de modelo, mas invertida)
+  glm::vec3 airplane_backward = -glm::vec3(airplane_model[2]);
 
-    // Calcula a nova posição-alvo da câmera (incluindo elevação)
-    glm::vec3 target_position = airplane_position + airplane_backward * camera_distance + glm::vec3(0.0f, 20.0f, -3.0f);
+  // Calcula a nova posição-alvo da câmera (incluindo elevação)
+  glm::vec3 target_position = airplane_position + airplane_backward * camera_distance + glm::vec3(0.0f, 20.0f, -3.0f);
 
-    // Suaviza a movimentação da câmera usando interpolação linear
-    camera_position = glm::mix(camera_position, target_position, camera_smoothness);
+  // Suaviza a movimentação da câmera usando interpolação linear
+  camera_position = glm::mix(camera_position, target_position, camera_smoothness);
 
-    // Define o alvo da câmera, ajustando o ponto de foco para baixo
-    camera_target = airplane_position - glm::vec3(0.1f, -2.0f, -2.0f);
+  // Define o alvo da câmera, ajustando o ponto de foco para baixo
+  camera_target = airplane_position - glm::vec3(0.1f, -2.0f, -2.0f);
 
-    // Atualiza a matriz de visualização (LookAt)
-    View = glm::lookAt(camera_position, camera_target, camera_up);
+  // Atualiza a matriz de visualização (LookAt)
+  View = glm::lookAt(camera_position, camera_target, camera_up);
 }
-
 
 #endif

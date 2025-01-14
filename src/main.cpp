@@ -24,6 +24,20 @@ bool descendo = false;
 bool vira_braco = false;
 bool andando = false;
 
+float frente = 0.0f;
+float altura = 0.0f;
+float lados = 0.0f;
+
+bool direita = false;
+bool esquerda = false;
+bool cima = false;
+bool baixo = false;
+bool reto_altura = true;
+bool reto_lado = true;
+
+float angulo_altura = 0.0f;
+float angulo_lado = 0.0f;
+
 float angulo_helice = 0.0f;
 float angulo_braco = 0.0f;
 
@@ -49,12 +63,56 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
         case GLFW_KEY_DOWN:
             subindo = false;
             descendo = true;
+            frente = false;
+            break;
+        case GLFW_KEY_W:
+            if(baixo){
+                reto_altura = true;
+            }else{
+                cima = true;
+                reto_altura = false;
+            }
+            baixo = false;
+            esquerda = false;
+            direita = false;
+            break;
+        case GLFW_KEY_S:
+            if(cima){
+                reto_altura = true;
+            }else{
+                baixo = true;
+                reto_altura = false;
+            }
+            cima = false;
+            esquerda = false;
+            direita = false;
+            break;
+        case GLFW_KEY_A:
+            if(direita){
+                reto_lado = true;
+            }else{
+                esquerda = true;
+                reto_lado = false;
+            }
+            direita = false;
+            cima = false;
+            baixo = false;
+            break;
+        case GLFW_KEY_D:
+            if(esquerda){
+                reto_lado = true;
+            }else{
+                direita = true;
+                reto_lado = false;
+            }
+            esquerda = false;
+            cima = false;
+            baixo = false;
             break;
         default:
             break;
         }
     }
-
 }
 
 int main(void)
@@ -88,10 +146,10 @@ int main(void)
 
     //Cria o chão
     GLfloat groundVertices[] = {
-        -30.0f, 0.0f, -30.0f,  
-        30.0f, 0.0f, -30.0f, 
-        30.0f, 0.0f,  30.0f,  
-        -30.0f, 0.0f,  30.0f   
+        -50.0f, 0.0f, -50.0f,  
+        50.0f, 0.0f, -50.0f, 
+        50.0f, 0.0f,  50.0f,  
+        -50.0f, 0.0f,  50.0f   
     };
 
     GLushort groundIndices[] = {
@@ -187,14 +245,24 @@ int main(void)
                 subindo = false;
                 andando = true;
                 vira_braco = true;
+                frente = true;
             }
         }
 
         if(descendo){
             if(y_aviao > 0){
                 y_aviao -= 0.05;
+            if(y_aviao < 0){
+                y_aviao = 0.0f;
+            }
                 vira_braco = true;
                 andando = false;
+                cima = false;
+                baixo = false;
+                direita = false;
+                esquerda = false;
+                reto_altura = false;
+                reto_lado = false;
             } else {
                 andando = false;
                 helice = false;
@@ -202,8 +270,64 @@ int main(void)
             }
         }
 
-        glm::mat4 matrix_corpo_aviao = glm::translate(glm::mat4(1.0), glm::vec3(x_aviao, y_aviao, z_aviao));
-        corpo_aviao->Model(matrix_corpo_aviao);
+        glm::mat4 matrix_corpo_aviao_angulo = glm::mat4(1.0f);
+
+        if(andando){
+            if(angulo_lado < 90 && angulo_lado > -90)
+                frente = frente + 0.01f;
+            else if(angulo_lado > 90 && angulo_lado < 240 || angulo_lado < -90 && angulo_lado > -240)
+                frente = frente - 0.01f;
+        }
+
+        if(reto_altura){
+            if(angulo_altura > 0){
+                angulo_altura -= 0.25f;
+            }
+            if(angulo_altura < 0){
+                angulo_altura += 0.25f;
+            }
+
+            matrix_corpo_aviao_angulo = glm::rotate(glm::mat4(1.0),glm::radians((float)angulo_altura),glm::vec3(1.0,0.0,0.0));
+        }
+
+        if(reto_lado){
+            matrix_corpo_aviao_angulo = glm::rotate(glm::mat4(1.0),glm::radians((float)angulo_lado),glm::vec3(0.0,1.0,0.0));
+        }
+
+        if(baixo){
+            y_aviao = y_aviao  - 0.1f;
+            if(angulo_altura < 25.0f){
+                angulo_altura += 0.25f;
+            }
+
+            matrix_corpo_aviao_angulo = glm::rotate(glm::mat4(1.0),glm::radians((float)angulo_altura),glm::vec3(1.0,0.0,0.0));
+        }
+
+        if(cima){
+            y_aviao = y_aviao + 0.1f;
+            if(angulo_altura > -25.0f){
+                angulo_altura -= 0.25f;
+            }
+
+            matrix_corpo_aviao_angulo = glm::rotate(glm::mat4(1.0),glm::radians((float)angulo_altura),glm::vec3(1.0,0.0,0.0));
+        }
+
+        if(direita){
+            lados = lados - 0.1f;
+            angulo_lado -= 0.35f;
+            
+            matrix_corpo_aviao_angulo = glm::rotate(glm::mat4(1.0),glm::radians((float)angulo_lado),glm::vec3(0.0,1.0,0.0));
+        }
+
+        if(esquerda){
+            lados = lados + 0.1f;
+            angulo_lado += 0.35f;
+            
+            matrix_corpo_aviao_angulo = glm::rotate(glm::mat4(1.0),glm::radians((float)angulo_lado),glm::vec3(0.0,1.0,0.0));
+        }
+
+        glm::mat4 matrix_corpo_aviao = glm::translate(glm::mat4(1.0), glm::vec3(x_aviao + lados, y_aviao, z_aviao + frente));
+        corpo_aviao->Model(matrix_corpo_aviao_angulo*matrix_corpo_aviao);
 
         //BRACO DIREITO
         glm::mat4 braco_translation_centro_direito = glm::translate(glm::mat4(1.0), glm::vec3(4.5, -3.0, 0.0));
@@ -211,19 +335,19 @@ int main(void)
 
         glm::mat4 braco_rotation = glm::rotate(glm::mat4(1.0),glm::radians((float)angulo_braco),glm::vec3(1.0,0.0,0.0));
 
-        braco_direito->Model(matrix_corpo_aviao*braco_translation_volta_direito*braco_rotation*braco_translation_centro_direito);
+        braco_direito->Model(matrix_corpo_aviao_angulo*matrix_corpo_aviao*braco_translation_volta_direito*braco_rotation*braco_translation_centro_direito);
 
         //BRACO ESQUERDO
         glm::mat4 braco_translation_centro_esquerdo = glm::translate(glm::mat4(1.0), glm::vec3(-4.5, -3.0, 0.0));
         glm::mat4 braco_translation_volta_esquerdo = glm::translate(glm::mat4(1.0), -glm::vec3(-4.5, -3.0, 0.0));
 
-        braco_esquerdo->Model(matrix_corpo_aviao*braco_translation_volta_esquerdo*braco_rotation*braco_translation_centro_esquerdo);
+        braco_esquerdo->Model(matrix_corpo_aviao_angulo*matrix_corpo_aviao*braco_translation_volta_esquerdo*braco_rotation*braco_translation_centro_esquerdo);
 
         //LEME
-        leme->Model(matrix_corpo_aviao);
+        leme->Model(matrix_corpo_aviao_angulo*matrix_corpo_aviao);
 
         //PROFUNDOR
-        profundor->Model(matrix_corpo_aviao);
+        profundor->Model(matrix_corpo_aviao_angulo*matrix_corpo_aviao);
 
         if(helice){
             //ROTACAO TURBINA DIREITA
@@ -242,14 +366,14 @@ int main(void)
             }
 
             // Aplica a matriz de rotação à turbina direita
-            turbina_direita->Model(matrix_corpo_aviao*helice_translation_direita_volta*helice_rotation_eixo*helice_translation_direita_centro*helice_rotation_mundo);
+            turbina_direita->Model(matrix_corpo_aviao_angulo*matrix_corpo_aviao*helice_translation_direita_volta*helice_rotation_eixo*helice_translation_direita_centro*helice_rotation_mundo);
 
             //ROTACAO TURBINA ESQUERDA
             glm::mat4 helice_translation_esquerda_centro = glm::translate(glm::mat4(1.0), -glm::vec3(4.72, 0.0, 0.0));
             glm::mat4 helice_translation_esquerda_volta = glm::translate(glm::mat4(1.0), glm::vec3(4.72, 0.0, 0.0));
 
             // Aplica a matriz de rotação à turbina direita
-            turbina_esquerda->Model(matrix_corpo_aviao*helice_translation_esquerda_volta*helice_rotation_eixo*helice_translation_esquerda_centro*helice_rotation_mundo);
+            turbina_esquerda->Model(matrix_corpo_aviao_angulo*matrix_corpo_aviao*helice_translation_esquerda_volta*helice_rotation_eixo*helice_translation_esquerda_centro*helice_rotation_mundo);
         }
 
         // Renderiza a cena
