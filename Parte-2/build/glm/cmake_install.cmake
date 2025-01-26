@@ -1,4 +1,4 @@
-# Install script for directory: /home/lucas/Área de trabalho/CG_Trabalhos/Trabalho_CG/glm
+# Install script for directory: /home/lucas/Área de trabalho/CG_Trabalhos/Trabalho_CG/Parte-2/glm
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

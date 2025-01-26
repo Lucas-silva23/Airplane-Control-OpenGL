@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = -Dglm_shared_EXPORTS
 
-CXX_INCLUDES = -I"/home/lucas/Área de trabalho/CG_Trabalhos/Trabalho_CG/glm/.."
+CXX_INCLUDES = -I"/home/lucas/Área de trabalho/CG_Trabalhos/Trabalho_CG/Parte-2/glm/.."
 
 CXX_FLAGS = -fPIC
 

@@ -34,9 +34,12 @@ bool cima = false;
 bool baixo = false;
 bool reto_altura = true;
 bool reto_lado = true;
+bool roll_direito = false;
+bool roll_esquerdo = false;
 
 float angulo_altura = 0.0f;
 float angulo_lado = 0.0f;
+float angulo_roll = 0.0f;
 
 float angulo_helice = 0.0f;
 float angulo_braco = 0.0f;
@@ -64,6 +67,8 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
             subindo = false;
             descendo = true;
             frente = false;
+            roll_direito = false;
+            roll_esquerdo = false;
             break;
         case GLFW_KEY_W:
             if(baixo){
@@ -108,6 +113,14 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
             esquerda = false;
             cima = false;
             baixo = false;
+            break;
+        case GLFW_KEY_J:
+            roll_esquerdo = true;
+            roll_direito = false;
+            break;
+        case GLFW_KEY_L:
+            roll_esquerdo = false;
+            roll_direito = true;
             break;
         default:
             break;
@@ -203,6 +216,20 @@ int main(void)
     glViewport(0, 0, width, height);
 
     my_scene.LookAt(0.0, 2.0, 10.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+
+
+    //Posicionando as partes
+    glm::mat4 helice_direita_position = glm::translate(glm::mat4(1.0), glm::vec3(0.5, 3.5, 2.5));
+    turbina_direita->Model(helice_direita_position);
+
+    glm::mat4 helice_esquerda_position = glm::translate(glm::mat4(1.0), glm::vec3(-0.5, 3.5, 2.5));
+    turbina_esquerda->Model(helice_esquerda_position);
+
+    glm::mat4 braco_esquerdo_position = glm::translate(glm::mat4(1.0), glm::vec3(-0.3, 0.0, 0.0));
+    braco_esquerdo->Model(braco_esquerdo_position);
+
+    glm::mat4 braco_direito_position = glm::translate(glm::mat4(1.0), glm::vec3(0.3, 0.0, 0.0));
+    braco_direito->Model(braco_direito_position);
 
     while (!glfwWindowShouldClose(window)) {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); 
@@ -326,22 +353,34 @@ int main(void)
             matrix_corpo_aviao_angulo = glm::rotate(glm::mat4(1.0),glm::radians((float)angulo_lado),glm::vec3(0.0,1.0,0.0));
         }
 
+        if(roll_direito){
+            angulo_roll += 0.040;
+
+            matrix_corpo_aviao_angulo = glm::rotate(glm::mat4(1.0),glm::radians((float)angulo_roll),glm::vec3(0.0,0.0,1.0));
+        }
+
+        if(roll_esquerdo){
+            angulo_roll -= 0.040;
+
+            matrix_corpo_aviao_angulo = glm::rotate(glm::mat4(1.0),glm::radians((float)angulo_roll),glm::vec3(0.0,0.0,1.0));
+        }
+
         glm::mat4 matrix_corpo_aviao = glm::translate(glm::mat4(1.0), glm::vec3(x_aviao + lados, y_aviao, z_aviao + frente));
         corpo_aviao->Model(matrix_corpo_aviao_angulo*matrix_corpo_aviao);
 
         //BRACO DIREITO
-        glm::mat4 braco_translation_centro_direito = glm::translate(glm::mat4(1.0), glm::vec3(4.5, -3.0, 0.0));
-        glm::mat4 braco_translation_volta_direito = glm::translate(glm::mat4(1.0), -glm::vec3(4.5, -3.0, 0.0));
+        glm::mat4 braco_translation_centro_direito = glm::translate(glm::mat4(1.0), glm::vec3(0.0, -4.5, -3.0));
+        glm::mat4 braco_translation_volta_direito = glm::translate(glm::mat4(1.0), -glm::vec3(0.0, -4.5, -3.0));
 
         glm::mat4 braco_rotation = glm::rotate(glm::mat4(1.0),glm::radians((float)angulo_braco),glm::vec3(1.0,0.0,0.0));
 
-        braco_direito->Model(matrix_corpo_aviao_angulo*matrix_corpo_aviao*braco_translation_volta_direito*braco_rotation*braco_translation_centro_direito);
+        braco_direito->Model(matrix_corpo_aviao_angulo*matrix_corpo_aviao*braco_translation_volta_direito*braco_rotation*braco_translation_centro_direito*braco_direito_position);
 
         //BRACO ESQUERDO
-        glm::mat4 braco_translation_centro_esquerdo = glm::translate(glm::mat4(1.0), glm::vec3(-4.5, -3.0, 0.0));
-        glm::mat4 braco_translation_volta_esquerdo = glm::translate(glm::mat4(1.0), -glm::vec3(-4.5, -3.0, 0.0));
+        glm::mat4 braco_translation_centro_esquerdo = glm::translate(glm::mat4(1.0), glm::vec3(0.0, -4.5, -3.0));
+        glm::mat4 braco_translation_volta_esquerdo = glm::translate(glm::mat4(1.0), -glm::vec3(0.0, -4.5, -3.0));
 
-        braco_esquerdo->Model(matrix_corpo_aviao_angulo*matrix_corpo_aviao*braco_translation_volta_esquerdo*braco_rotation*braco_translation_centro_esquerdo);
+        braco_esquerdo->Model(matrix_corpo_aviao_angulo*matrix_corpo_aviao*braco_translation_volta_esquerdo*braco_rotation*braco_translation_centro_esquerdo*braco_esquerdo_position);
 
         //LEME
         leme->Model(matrix_corpo_aviao_angulo*matrix_corpo_aviao);
@@ -350,30 +389,52 @@ int main(void)
         profundor->Model(matrix_corpo_aviao_angulo*matrix_corpo_aviao);
 
         if(helice){
-            //ROTACAO TURBINA DIREITA
-            glm::mat4 helice_translation_direita_centro = glm::translate(glm::mat4(1.0), glm::vec3(4.5, 0.0, 0.0));
-            glm::mat4 helice_translation_direita_volta = glm::translate(glm::mat4(1.0), -glm::vec3(4.5, 0.0, 0.0));
-
             glm::mat4 helice_rotation_eixo;
             glm::mat4 helice_rotation_mundo = glm::mat4(1.0f);
-            if(andando)
-                helice_rotation_eixo = glm::rotate(glm::mat4(1.0),glm::radians((float)angulo_helice),glm::vec3(0.0,0.0,1.0));
-            else
-                helice_rotation_eixo = glm::rotate(glm::mat4(1.0),glm::radians((float)angulo_helice),glm::vec3(0.0,1.0,0.0));
+
+            //ROTACAO TURBINA DIREITA
+            glm::mat4 helice_translation_direita_centro = glm::mat4(1.0f);
+            glm::mat4 helice_translation_direita_volta = glm::mat4(1.0f);
+            glm::mat4 helice_translation_mundo_ajuste_direito = glm::mat4(1.0f);
+
+            //ROTACAO TURBINA ESQUERDA
+            glm::mat4 helice_translation_esquerda_centro = glm::mat4(1.0f);
+            glm::mat4 helice_translation_esquerda_volta = glm::mat4(1.0f);
+            glm::mat4 helice_translation_mundo_ajuste_esquerdo = glm::mat4(1.0f);
 
             if(andando){
                 helice_rotation_mundo = glm::rotate(glm::mat4(1.0),glm::radians((float)angulo_braco),glm::vec3(1.0,0.0,0.0));
+                helice_rotation_eixo = glm::rotate(glm::mat4(1.0),glm::radians((float)angulo_helice),glm::vec3(0.0,0.0,1.0));
+
+                //ROTACAO DA HELICE DIREITA COM O AVIAO ANDANDO
+                helice_translation_mundo_ajuste_direito = glm::translate(glm::mat4(1.0), glm::vec3(-1.0, 4.0, 1.8));
+
+                helice_translation_direita_centro = glm::translate(glm::mat4(1.0), glm::vec3(5.4, 2.6, 0.0));
+                helice_translation_direita_volta = glm::translate(glm::mat4(1.0), -glm::vec3(5.4, 2.6, 0.0));
+
+                //ROTACAO DA HELICE ESQUERDA COM O AVIAO ANDANDO
+                helice_translation_mundo_ajuste_esquerdo = glm::translate(glm::mat4(1.0), glm::vec3(1.0, 0.0, 0.8));
+
+                helice_translation_esquerda_centro = glm::translate(glm::mat4(1.0), glm::vec3(-5.4, 2.6, 0.0));
+                helice_translation_esquerda_volta = glm::translate(glm::mat4(1.0), glm::vec3(5.4, 2.6, 0.0));
+            }
+            else{
+                helice_rotation_eixo = glm::rotate(glm::mat4(1.0),glm::radians((float)angulo_helice),glm::vec3(0.0,1.0,0.0));
+
+                //ROTACAO DA HELICE DIREITA COM O AVIAO PARADO OU SUBINDO
+                helice_translation_direita_centro = glm::translate(glm::mat4(1.0), glm::vec3(5.4, 0.0, -2.75));
+                helice_translation_direita_volta = glm::translate(glm::mat4(1.0), -glm::vec3(5.4, 0.0, -2.75));
+
+                //ROTACAO DA HELICE ESQUERDA COM O AVIAO PARADO OU SUBINDO
+                helice_translation_esquerda_centro = glm::translate(glm::mat4(1.0), -glm::vec3(5.4, 0.0, 2.75));
+                helice_translation_esquerda_volta = glm::translate(glm::mat4(1.0), glm::vec3(5.4, 0.0, 2.75));
             }
 
             // Aplica a matriz de rotação à turbina direita
-            turbina_direita->Model(matrix_corpo_aviao_angulo*matrix_corpo_aviao*helice_translation_direita_volta*helice_rotation_eixo*helice_translation_direita_centro*helice_rotation_mundo);
+            turbina_direita->Model(matrix_corpo_aviao_angulo*matrix_corpo_aviao* helice_translation_mundo_ajuste_direito*helice_translation_direita_volta*helice_rotation_eixo*helice_translation_direita_centro*helice_rotation_mundo*helice_direita_position);
 
-            //ROTACAO TURBINA ESQUERDA
-            glm::mat4 helice_translation_esquerda_centro = glm::translate(glm::mat4(1.0), -glm::vec3(4.72, 0.0, 0.0));
-            glm::mat4 helice_translation_esquerda_volta = glm::translate(glm::mat4(1.0), glm::vec3(4.72, 0.0, 0.0));
-
-            // Aplica a matriz de rotação à turbina direita
-            turbina_esquerda->Model(matrix_corpo_aviao_angulo*matrix_corpo_aviao*helice_translation_esquerda_volta*helice_rotation_eixo*helice_translation_esquerda_centro*helice_rotation_mundo);
+            // Aplica a matriz de rotação à turbina esquerda
+            turbina_esquerda->Model(matrix_corpo_aviao_angulo*matrix_corpo_aviao*helice_translation_mundo_ajuste_esquerdo*helice_translation_esquerda_volta*helice_rotation_eixo*helice_translation_esquerda_centro*helice_rotation_mundo*helice_esquerda_position);
         }
 
         // Renderiza a cena
