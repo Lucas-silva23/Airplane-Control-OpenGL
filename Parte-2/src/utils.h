@@ -149,4 +149,116 @@ static GLuint CompileShaders(const char* pVSFileName, const char* pFSFileName)
 
 }
 
+// Função para salvar dados da textura em um arquivo BMP
+void salvarTexturaComoBMP(const char* nomeArquivo, int largura, int altura, const unsigned char* data) {
+    // O cabeçalho BMP tem 54 bytes
+    int tamanhoCabecalho = 54;
+
+    // Cabeçalho BMP
+    unsigned char cabecalhoBMP[tamanhoCabecalho] = {
+        0x42, 0x4D,                     // "BM" - Identificador BMP
+        0, 0, 0, 0,                     // Tamanho do arquivo em bytes (será preenchido mais tarde)
+        0, 0, 0, 0,                     // Reservado
+        54, 0, 0, 0,                    // Tamanho do cabeçalho
+        40, 0, 0, 0,                    // Tamanho do cabeçalho de informações
+        static_cast<unsigned char>(largura), static_cast<unsigned char>(largura >> 8), static_cast<unsigned char>(largura >> 16), static_cast<unsigned char>(largura >> 24),  // largura
+        static_cast<unsigned char>(altura), static_cast<unsigned char>(altura >> 8), static_cast<unsigned char>(altura >> 16), static_cast<unsigned char>(altura >> 24),  // altura
+        1, 0,                            // Planos de cores (1)
+        24, 0,                           // Bits por pixel (24 para cores RGB)
+        0, 0, 0, 0,                     // Compressão (0 para sem compressão)
+        0, 0, 0, 0,                     // Tamanho da imagem após compressão (0 para sem compressão)
+        0, 0, 0, 0,                     // Resolução horizontal em pixels por metro (0 para valor padrão)
+        0, 0, 0, 0,                     // Resolução vertical em pixels por metro (0 para valor padrão)
+        0, 0, 0, 0,                     // Cores na paleta (0 para usar todas as cores disponíveis)
+        0, 0, 0, 0                      // Cores importantes (0 para todas as cores importantes)
+    };
+
+    // Preencher o tamanho do arquivo no cabeçalho
+    int tamanhoArquivo = tamanhoCabecalho + largura * altura * 3;  // 3 bytes por pixel (sem alfa)
+    cabecalhoBMP[2] = static_cast<unsigned char>(tamanhoArquivo);
+    cabecalhoBMP[3] = static_cast<unsigned char>(tamanhoArquivo >> 8);
+    cabecalhoBMP[4] = static_cast<unsigned char>(tamanhoArquivo >> 16);
+    cabecalhoBMP[5] = static_cast<unsigned char>(tamanhoArquivo >> 24);
+
+    // Escrever cabeçalho BMP e dados da textura no arquivo
+    std::ofstream arquivo(nomeArquivo, std::ios::binary);
+    arquivo.write(reinterpret_cast<char*>(cabecalhoBMP), tamanhoCabecalho);
+    arquivo.write(reinterpret_cast<const char*>(data), largura * altura * 3);  // 3 bytes por pixel (sem alfa)
+    arquivo.close();
+}
+
+void SalvarTexura2Image(const char* nomeArquivo,int W,int H,int C,bool normalizar = true) {
+    // Ler os dados da textura de volta para a CPU
+    GLint activeTexture;
+    glGetIntegerv(GL_ACTIVE_TEXTURE, &activeTexture);
+
+    GLint boundTexture;
+    glGetIntegerv(GL_TEXTURE_BINDING_2D, &boundTexture);
+
+    // Impressão das informações
+    std::cout << "Unidade de textura ativa: " << activeTexture << std::endl;
+    std::cout << "Textura vinculada à unidade ativa: " << boundTexture << std::endl;
+
+    float*  depthData = new float[W* H*C]; // RGBA format
+    if(C == 1)
+        glGetTexImage(GL_TEXTURE_2D, 0,GL_DEPTH_COMPONENT, GL_FLOAT, depthData);
+    else if(C==3)
+        glGetTexImage(GL_TEXTURE_2D, 0,GL_RGB, GL_FLOAT, depthData);
+    else{
+        cout << "Numero C deve ser 1 ou 3" << endl;
+        return;
+    }
+    GLenum error;
+    error = glGetError();
+    if (error != GL_NO_ERROR) {
+        cout << "OpenGL Error: " << error << std::endl;
+        if(error == GL_INVALID_ENUM)
+          cout << "GL_INVALID_ENUM" << endl;
+        if(error == GL_INVALID_OPERATION)
+          cout << "GL_INVALID_OPERATION" << endl;
+        return;
+    }
+    float minDepth = 1.0f; // Valor inicial alto
+    float maxDepth = 0.0f; // Valor inicial baixo
+
+    if(normalizar){
+
+        for (int i = 0; i < W * H*C; ++i) {
+            minDepth = std::min(minDepth, depthData[i]);
+            maxDepth = std::max(maxDepth, depthData[i]);
+        }
+        cout << minDepth << " " << maxDepth << endl;
+    }else{
+        minDepth = 0.0;
+        maxDepth = 1.0;
+    }
+    // Criar um buffer de imagem em tons de cinza
+    unsigned char* imageData = new unsigned char[W * H*3];
+    
+    for (int i = 0; i < W * H; ++i) {
+        // Armazenar no buffer de imagem
+        if (C == 3){
+           float normalizedDepth = (depthData[i*3 + 2] - minDepth) / (maxDepth - minDepth);
+           unsigned char grayValue = static_cast<unsigned char>(normalizedDepth * 255);
+           imageData[3*i] = grayValue;
+           normalizedDepth = (depthData[i*3 + 1] - minDepth) / (maxDepth - minDepth);
+           grayValue = static_cast<unsigned char>(normalizedDepth * 255);
+           imageData[3*i + 1] = grayValue;
+           normalizedDepth = (depthData[i*3] - minDepth) / (maxDepth - minDepth);
+           grayValue = static_cast<unsigned char>(normalizedDepth * 255);
+           imageData[3*i + 2] = grayValue;
+        }
+        if (C == 1){
+           float normalizedDepth = (depthData[i] - minDepth) / (maxDepth - minDepth);
+           unsigned char grayValue = static_cast<unsigned char>(normalizedDepth * 255);
+           imageData[3*i] = grayValue;
+           imageData[3*i + 1] = grayValue;
+           imageData[3*i + 2] = grayValue; 
+        }
+    }
+    salvarTexturaComoBMP(nomeArquivo, W, H, imageData);
+   
+}
+
+
 #endif

@@ -286,6 +286,8 @@ CMakeFiles/my_opengl_project.dir/src/main.cpp.o: /home/lucas/Área\ de\ trabalho
   /home/lucas/Área\ de\ trabalho/CG_Trabalhos/Trabalho_CG/Parte-2/src/loadobject.h \
   /home/lucas/Área\ de\ trabalho/CG_Trabalhos/Trabalho_CG/Parte-2/src/object.h \
   /home/lucas/Área\ de\ trabalho/CG_Trabalhos/Trabalho_CG/Parte-2/src/scene.h \
+  /home/lucas/Área\ de\ trabalho/CG_Trabalhos/Trabalho_CG/Parte-2/src/shadow_map.h \
+  /home/lucas/Área\ de\ trabalho/CG_Trabalhos/Trabalho_CG/Parte-2/src/texture.h \
   /home/lucas/Área\ de\ trabalho/CG_Trabalhos/Trabalho_CG/Parte-2/src/utils.h \
   /usr/include/GLFW/glfw3.h \
   /usr/include/alloca.h \
@@ -307,6 +309,7 @@ CMakeFiles/my_opengl_project.dir/src/main.cpp.o: /home/lucas/Área\ de\ trabalho
   /usr/include/c++/13/bits/cpp_type_traits.h \
   /usr/include/c++/13/bits/cxxabi_forced.h \
   /usr/include/c++/13/bits/cxxabi_init_exception.h \
+  /usr/include/c++/13/bits/erase_if.h \
   /usr/include/c++/13/bits/exception.h \
   /usr/include/c++/13/bits/exception_defines.h \
   /usr/include/c++/13/bits/exception_ptr.h \
@@ -327,6 +330,7 @@ CMakeFiles/my_opengl_project.dir/src/main.cpp.o: /home/lucas/Área\ de\ trabalho
   /usr/include/c++/13/bits/move.h \
   /usr/include/c++/13/bits/nested_exception.h \
   /usr/include/c++/13/bits/new_allocator.h \
+  /usr/include/c++/13/bits/node_handle.h \
   /usr/include/c++/13/bits/ostream.tcc \
   /usr/include/c++/13/bits/ostream_insert.h \
   /usr/include/c++/13/bits/postypes.h \
@@ -345,7 +349,10 @@ CMakeFiles/my_opengl_project.dir/src/main.cpp.o: /home/lucas/Área\ de\ trabalho
   /usr/include/c++/13/bits/stl_iterator.h \
   /usr/include/c++/13/bits/stl_iterator_base_funcs.h \
   /usr/include/c++/13/bits/stl_iterator_base_types.h \
+  /usr/include/c++/13/bits/stl_map.h \
+  /usr/include/c++/13/bits/stl_multimap.h \
   /usr/include/c++/13/bits/stl_pair.h \
+  /usr/include/c++/13/bits/stl_tree.h \
   /usr/include/c++/13/bits/stl_uninitialized.h \
   /usr/include/c++/13/bits/stl_vector.h \
   /usr/include/c++/13/bits/streambuf.tcc \
@@ -374,6 +381,7 @@ CMakeFiles/my_opengl_project.dir/src/main.cpp.o: /home/lucas/Área\ de\ trabalho
   /usr/include/c++/13/debug/assertions.h \
   /usr/include/c++/13/debug/debug.h \
   /usr/include/c++/13/exception \
+  /usr/include/c++/13/ext/aligned_buffer.h \
   /usr/include/c++/13/ext/alloc_traits.h \
   /usr/include/c++/13/ext/atomicity.h \
   /usr/include/c++/13/ext/numeric_traits.h \
@@ -386,6 +394,7 @@ CMakeFiles/my_opengl_project.dir/src/main.cpp.o: /home/lucas/Área\ de\ trabalho
   /usr/include/c++/13/iostream \
   /usr/include/c++/13/istream \
   /usr/include/c++/13/limits \
+  /usr/include/c++/13/map \
   /usr/include/c++/13/new \
   /usr/include/c++/13/ostream \
   /usr/include/c++/13/pstl/pstl_config.h \
@@ -692,10 +701,6 @@ CMakeFiles/my_opengl_project.dir/src/main.cpp.o: /home/lucas/Área\ de\ trabalho
 
 /usr/include/c++/13/tr1/beta_function.tcc:
 
-/usr/include/x86_64-linux-gnu/bits/iscanonical.h:
-
-/usr/include/c++/13/string_view:
-
 /usr/include/c++/13/stdlib.h:
 
 /usr/include/c++/13/stdexcept:
@@ -705,6 +710,12 @@ CMakeFiles/my_opengl_project.dir/src/main.cpp.o: /home/lucas/Área\ de\ trabalho
 /usr/include/c++/13/sstream:
 
 /usr/include/c++/13/new:
+
+/usr/include/x86_64-linux-gnu/bits/iscanonical.h:
+
+/usr/include/c++/13/string_view:
+
+/usr/include/c++/13/map:
 
 /usr/include/c++/13/iosfwd:
 
@@ -725,6 +736,8 @@ CMakeFiles/my_opengl_project.dir/src/main.cpp.o: /home/lucas/Área\ de\ trabalho
 /usr/include/c++/13/ext/atomicity.h:
 
 /usr/include/c++/13/ext/alloc_traits.h:
+
+/usr/include/c++/13/ext/aligned_buffer.h:
 
 /usr/include/c++/13/exception:
 
@@ -749,6 +762,8 @@ CMakeFiles/my_opengl_project.dir/src/main.cpp.o: /home/lucas/Área\ de\ trabalho
 /usr/include/x86_64-linux-gnu/bits/errno.h:
 
 /usr/include/c++/13/bits/stl_pair.h:
+
+/usr/include/c++/13/bits/stl_map.h:
 
 /usr/include/stdio.h:
 
@@ -816,6 +831,8 @@ CMakeFiles/my_opengl_project.dir/src/main.cpp.o: /home/lucas/Área\ de\ trabalho
 
 /usr/include/c++/13/bits/functional_hash.h:
 
+/usr/include/c++/13/bits/erase_if.h:
+
 /usr/include/c++/13/bits/cxxabi_init_exception.h:
 
 /usr/include/c++/13/bits/cxxabi_forced.h:
@@ -823,6 +840,8 @@ CMakeFiles/my_opengl_project.dir/src/main.cpp.o: /home/lucas/Área\ de\ trabalho
 /usr/include/c++/13/cassert:
 
 /usr/include/c++/13/bits/cpp_type_traits.h:
+
+/usr/include/c++/13/bits/stl_tree.h:
 
 /usr/include/c++/13/bits/codecvt.h:
 
@@ -853,6 +872,8 @@ CMakeFiles/my_opengl_project.dir/src/main.cpp.o: /home/lucas/Área\ de\ trabalho
 /usr/include/GLFW/glfw3.h:
 
 /home/lucas/Área\ de\ trabalho/CG_Trabalhos/Trabalho_CG/Parte-2/src/utils.h:
+
+/home/lucas/Área\ de\ trabalho/CG_Trabalhos/Trabalho_CG/Parte-2/src/shadow_map.h:
 
 /home/lucas/Área\ de\ trabalho/CG_Trabalhos/Trabalho_CG/Parte-2/src/scene.h:
 
@@ -958,6 +979,8 @@ CMakeFiles/my_opengl_project.dir/src/main.cpp.o: /home/lucas/Área\ de\ trabalho
 
 /usr/include/c++/13/bits/stl_algobase.h:
 
+/home/lucas/Área\ de\ trabalho/CG_Trabalhos/Trabalho_CG/Parte-2/src/texture.h:
+
 /home/lucas/Área\ de\ trabalho/CG_Trabalhos/Trabalho_CG/Parte-2/glm/detail/type_float.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/typesizes.h:
@@ -1043,6 +1066,8 @@ CMakeFiles/my_opengl_project.dir/src/main.cpp.o: /home/lucas/Área\ de\ trabalho
 /home/lucas/Área\ de\ trabalho/CG_Trabalhos/Trabalho_CG/Parte-2/glm/gtc/random.hpp:
 
 /usr/include/x86_64-linux-gnu/gnu/stubs-64.h:
+
+/usr/include/c++/13/bits/node_handle.h:
 
 /home/lucas/Área\ de\ trabalho/CG_Trabalhos/Trabalho_CG/Parte-2/glm/ext/matrix_common.inl:
 
@@ -1565,6 +1590,8 @@ CMakeFiles/my_opengl_project.dir/src/main.cpp.o: /home/lucas/Área\ de\ trabalho
 /home/lucas/Área\ de\ trabalho/CG_Trabalhos/Trabalho_CG/Parte-2/glm/gtc/epsilon.inl:
 
 /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h:
+
+/usr/include/c++/13/bits/stl_multimap.h:
 
 /home/lucas/Área\ de\ trabalho/CG_Trabalhos/Trabalho_CG/Parte-2/glm/ext/matrix_float4x2_precision.hpp:
 
